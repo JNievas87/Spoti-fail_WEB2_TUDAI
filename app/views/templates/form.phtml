@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title><?= isset($interprete) ? 'Editar' : 'Agregar' ?> intérprete</title>
+</head>
+<body>
+    <h1><?= isset($interprete) ? 'Editar' : 'Agregar' ?> intérprete</h1>
+
+    <a href="?action=interprete">← Volver a intérpretes</a>
+
+    <form method="POST" action="?action=interprete/save<?= isset($interprete) ? '/' . $interprete->ID_Interprete : '' ?>">
+        
+        <label>Nombre:</label>
+        <input type="text" name="Nombre" value="<?= isset($interprete) ? $interprete->Nombre : '' ?>">
+        
+        <label>Género:</label>
+        <input type="text" name="Genero" value="<?= isset($interprete) ? $interprete->Genero : '' ?>">
+        
+        <label>Tipo:</label>
+        <input type="text" name="Tipo" value="<?= isset($interprete) ? $interprete->Tipo : '' ?>">
+        
+        <label>País de origen:</label>
+        <input type="text" name="Pais_Origen" value="<?= isset($interprete) ? $interprete->Pais_Origen : '' ?>">
+        
+        <label>Sello discográfico:</label>
+        <input type="text" name="SelloDiscografico" value="<?= isset($interprete) ? $interprete->SelloDiscografico : '' ?>">
+        
+        <label>Sitio web:</label>
+        <input type="text" name="SitioWeb" value="<?= isset($interprete) ? $interprete->SitioWeb : '' ?>">
+        
+        <label>Fecha de inicio:</label>
+        <input type="date" name="FechaInicio" value="<?= isset($interprete) ? $interprete->FechaInicio : '' ?>">
+        
+        <label>Imagen (URL):</label>
+        <input type="text" name="Imagen" value="<?= isset($interprete) ? $interprete->Imagen : '' ?>">
+
+        <button type="submit">Guardar</button>
+    </form>
+</body>
+</html>

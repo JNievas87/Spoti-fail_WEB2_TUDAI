@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Intérpretes</title>
+</head>
+<body>
+    <h1>Intérpretes</h1>
+
+    <?php if($this->user): ?>
+        <a href="?action=interprete/add">Agregar intérprete</a>
+    <?php endif; ?>
+
+    <?php foreach($interpretes as $interprete): ?>
+        <div>
+            <img src="<?= $interprete->Imagen ?>" alt="<?= $interprete->Nombre ?>" style="width: 400px; height: 400px; object-fit: cover;">
+            <h2><?= $interprete->Nombre ?></h2>
+            <p><?= $interprete->Genero ?></p>
+            <p><?= $interprete->Pais_Origen ?></p>
+            <a href="?action=interprete/<?= $interprete->ID_Interprete ?>">Ver detalle</a>
+
+            <?php if($this->user): ?>
+                <a href="?action=interprete/edit/<?= $interprete->ID_Interprete ?>">Editar</a>
+                <a href="?action=interprete/delete/<?= $interprete->ID_Interprete ?>">Eliminar</a>
+            <?php endif; ?>
+        </div>
+    <?php endforeach; ?>
+</body>
+</html>
