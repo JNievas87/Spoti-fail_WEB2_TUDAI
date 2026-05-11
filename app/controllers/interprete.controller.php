@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/interprete.model.php';
-require_once __DIR__ . '/../views/interprete/interprete.view.php';
+require_once __DIR__ . '/../views/interprete.view.php';
 
 class InterpreteController {
     private $model;
@@ -15,7 +15,7 @@ class InterpreteController {
     $interpretes = $this->model->getAll();
     $this->view->setUser(null);
     $this->view->renderAll($interpretes);
-}
+    }
 
     public function showDetail($req) {
         $id = $req->id;
@@ -25,8 +25,6 @@ class InterpreteController {
             echo "Intérprete no encontrado";
             return;
         }
-
-    
         $this->view->renderDetail($interprete);
     }
 

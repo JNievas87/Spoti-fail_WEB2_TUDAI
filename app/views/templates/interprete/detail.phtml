@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<?php require_once __DIR__ . '/../layout/header.phtml'; ?>
+
+<a href="?action=interprete/" class="btn btn-secondary">← Volver a intérpretes</a>
+
+<article>
+	<div>
+        <?php if (!empty($interprete->Imagen)): ?>
+			<img src="<?= $interprete->Imagen ?>" alt="<?= $interprete->Nombre ?>" style="width: 200px;">
+        <?php endif; ?>
+
+		<h1><?= $interprete->Nombre ?></h1>
+		<p><strong>Género:</strong> <?= $interprete->Genero ?></p>
+		<p><strong>Tipo:</strong> <?= $interprete->Tipo ?></p>
+		<p><strong>País de origen:</strong> <?= $interprete->Pais_Origen ?></p>
+		<p><strong>Sello discográfico:</strong> <?= $interprete->SelloDiscografico ?></p>
+		<p><strong>Sitio web:</strong> <a href="<?= $interprete->SitioWeb ?>" target="_blank"><?= $interprete->SitioWeb ?></a></p>
+		<p><strong>Fecha de inicio:</strong> <?= $interprete->FechaInicio ?></p>
+	</div>
+
+    <?php if($user): ?>
+		<div class="actions">
+			<a href="interprete/edit/<?= $interprete->ID_Interprete ?>">Editar</a>
+			<a href="interprete/delete/<?= $interprete->ID_Interprete ?>">Eliminar</a>
+		</div>
+    <?php endif; ?>
+</article>
+
+<?php require_once __DIR__ . '/../layout/footer.phtml'; ?>

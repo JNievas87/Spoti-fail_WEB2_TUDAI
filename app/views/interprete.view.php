@@ -8,10 +8,12 @@ class InterpreteView {
     }
 
     public function renderAll($interpretes) {
-    require __DIR__ . '/../templates/list.phtml';
-}
+        $user = $this->user;
+        require_once __DIR__ . '/templates/interprete/list.phtml';
+    }
 
     public function renderDetail($interprete) {
-    require __DIR__ . '/../templates/detail.phtml';
-}
+        $user = $this->user;
+        require_once __DIR__ . '/templates/interprete/detail.phtml';
+    }
 }

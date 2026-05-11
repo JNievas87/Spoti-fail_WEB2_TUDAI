@@ -1,0 +1,55 @@
+<?php require_once __DIR__ . '/../layout/header.phtml'; ?>
+
+	<div class="container mt-5">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="?action=cancion">Canciones</a></li>
+				<li class="breadcrumb-item active"><?= $cancion->Titulo ?></li>
+			</ol>
+		</nav>
+
+		<div class="card shadow-lg border-0 overflow-hidden">
+			<div class="row g-0">
+				<div class="col-md-5">
+					<img src="<?= $cancion->Portada ?>"
+					     class="img-fluid h-100"
+					     alt="<?= $cancion->Titulo ?>"
+					     style="object-fit: contain; min-height: 400px;">
+				</div>
+
+				<div class="col-md-7">
+					<div class="card-body p-5">
+						<h1 class="display-5 fw-bold text-success"><?= $cancion->Titulo ?></h1>
+
+						<h3 class="text-muted mb-4">
+							Por:
+							<a href="?action=interprete/<?= $cancion->ID_Interprete ?>" class="text-decoration-none text-primary">
+                                <?= $cancion->Nombre_Artista ?> <i class="bi bi-arrow-right-circle"></i>
+							</a>
+						</h3>
+
+						<hr>
+
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item bg-transparent"><strong>Álbum:</strong> <?= $cancion->Album ?></li>
+							<li class="list-group-item bg-transparent"><strong>Género:</strong> <?= $cancion->Genero ?></li>
+							<li class="list-group-item bg-transparent"><strong>Año de lanzamiento:</strong> <?= $cancion->Año ?></li>
+							<li class="list-group-item bg-transparent"><strong>Idioma:</strong> <?= $cancion->Idioma ?></li>
+							<li class="list-group-item bg-transparent text-secondary">Duración:
+								<?= floor($cancion->Duracion / 60) ?>:<?= str_pad($cancion->Duracion % 60, 2, '0', STR_PAD_LEFT) ?> min.</li>
+						</ul>
+
+						<div class="mt-5">
+							<a href="?action=cancion" class="btn btn-outline-secondary">Volver al listado</a>
+
+                            <?php if($this->user): ?>
+								<a href="?action=cancion/edit/<?= $cancion->ID_Cancion ?>" class="btn btn-warning">Editar</a>
+                            <?php endif; ?>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<?php require_once __DIR__ . '/../layout/footer.phtml'; ?>
