@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <?php require_once __DIR__ . '/../layout/header.phtml'; ?>
 
-<a href="?action=interprete/" class="btn btn-secondary">← Volver a intérpretes</a>
-
 <article>
 	<div>
         <?php if (!empty($interprete->Imagen)): ?>
@@ -24,6 +22,7 @@
 			<a href="interprete/delete/<?= $interprete->ID_Interprete ?>">Eliminar</a>
 		</div>
     <?php endif; ?>
+	<a href="?action=interprete/" class="btn btn-secondary">← Volver a intérpretes</a>
 </article>
 
 <?php require_once __DIR__ . '/../layout/footer.phtml'; ?>

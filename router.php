@@ -2,12 +2,13 @@
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/app/controllers/interprete.controller.php';
 require_once __DIR__ . '/app/controllers/cancion.controller.php';
+require_once __DIR__ . '/app/controllers/home.controller.php';
 
 session_start();
 
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
-$action = 'interprete';
+$action = 'home';
 
 if (!empty($_GET['action'])) {
     $action = $_GET['action'];
@@ -35,6 +36,10 @@ switch ($params[0]) {
         } else {
             $controller->showAll($req);
         }
+        break;
+    case 'home':
+        $controller = new HomeController();
+        $controller->showHome();
         break;
 
     default:

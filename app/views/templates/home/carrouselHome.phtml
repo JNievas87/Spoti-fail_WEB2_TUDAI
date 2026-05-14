@@ -1,0 +1,39 @@
+<?php require_once __DIR__ . '/../layout/header.phtml'; ?>
+
+
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Recomendados para vos</h2>
+
+        <div id="homeCarousel" class="carousel slide shadow-lg rounded overflow-hidden" data-bs-ride="carousel">
+	        <div class="carousel-inner">
+                <?php foreach ($canciones as $index => $cancion): ?>
+			        <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>" style="height: 450px; background-color: #121212;">
+
+				        <a href="?action=cancion/<?= $cancion->ID_Cancion ?>" class="text-decoration-none">
+					        <div style="position: relative; height: 100%;">
+						        <img src="<?= $cancion->Portada ?>" class="d-block mx-auto h-100" style="object-fit: contain;" alt="<?= $cancion->Titulo ?>">
+						        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+						        background: linear-gradient(transparent 50%, rgba(0,0,0,0.8) 100%);"></div>
+					        </div>
+
+					        <div class="carousel-caption d-none d-md-block" style="bottom: 20px;">
+						        <h3 class="fw-bold text-light m-0"><?= htmlspecialchars($cancion->Titulo) ?></h3>
+						        <p class="text-secondary">
+							        <span class="text-light fw-bold"><?= htmlspecialchars($cancion->Nombre_Artista) ?></span>
+							        • <?= htmlspecialchars($cancion->Album) ?>
+						        </p>
+					        </div>
+				        </a>
+			        </div>
+                <?php endforeach; ?>
+	        </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+
+<?php require_once __DIR__ . '/../layout/footer.phtml'; ?>
