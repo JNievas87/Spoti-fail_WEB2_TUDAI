@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+
 <?php require_once __DIR__ . '/../layout/header.phtml'; ?>
-<body>
+
     <h1><?= isset($interprete) ? 'Editar' : 'Agregar' ?> intérprete</h1>
 
-    <a href="?action=interprete">← Volver a intérpretes</a>
+    <a href="<?= BASE_URL ?>interprete">← Volver a intérpretes</a>
 
-    <form method="POST" action="?action=interprete/save<?= isset($interprete) ? '/' . $interprete->ID_Interprete : '' ?>">
+        <form method="POST" action="<?= BASE_URL ?><?= isset($interprete) ? 'editInterprete/' . $interprete->ID_Interprete : 'addInterprete' ?>">
         
         <label>Nombre:</label>
         <input type="text" name="Nombre" value="<?= isset($interprete) ? $interprete->Nombre : '' ?>">
@@ -33,5 +33,4 @@
 
         <button type="submit">Guardar</button>
     </form>
-</body>
 <?php require_once __DIR__ . '/../layout/footer.phtml'; ?>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <?php require_once __DIR__ . '/../layout/header.phtml'; ?>
 
 <article>
@@ -14,15 +14,15 @@
 		<p><strong>Sello discográfico:</strong> <?= $interprete->SelloDiscografico ?></p>
 		<p><strong>Sitio web:</strong> <a href="<?= $interprete->SitioWeb ?>" target="_blank"><?= $interprete->SitioWeb ?></a></p>
 		<p><strong>Fecha de inicio:</strong> <?= $interprete->FechaInicio ?></p>
-	</div>
+	</div> 
 
     <?php if($user): ?>
 		<div class="actions">
-			<a href="interprete/edit/<?= $interprete->ID_Interprete ?>">Editar</a>
-			<a href="interprete/delete/<?= $interprete->ID_Interprete ?>">Eliminar</a>
+			<a href="<?= BASE_URL ?>editInterprete/<?= $interprete->ID_Interprete ?>">Editar</a>
+            <a href="<?= BASE_URL ?>deleteInterprete/<?= $interprete->ID_Interprete ?>">Eliminar</a>
 		</div>
     <?php endif; ?>
-	<a href="?action=interprete/" class="btn btn-secondary">← Volver a intérpretes</a>
+	<a href="<?= BASE_URL ?>interprete/" class="btn btn-secondary">← Volver a intérpretes</a>
 </article>
 
 <?php require_once __DIR__ . '/../layout/footer.phtml'; ?>

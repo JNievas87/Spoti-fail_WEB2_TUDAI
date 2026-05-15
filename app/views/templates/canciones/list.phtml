@@ -4,7 +4,7 @@
 		<div class="d-flex justify-content-between align-items-center mb-4">
 			<h1>Lista de Canciones</h1>
             <?php if($this->user): ?>
-				<a href="?action=cancion/add" class="btn btn-success"> + Agregar Canción</a>
+			    <a href="<?= BASE_URL ?>cancion/add" class="btn btn-success"> + Agregar Canción</a>
             <?php endif; ?>
 		</div>
 
@@ -24,7 +24,7 @@
 							</p>
 
 							<div class="d-grid mt-2">
-								<a href="?action=cancion/<?= $cancion->ID_Cancion ?>" class="btn btn-primary btn-sm">Ver Detalle</a>
+							    <a href="<?= BASE_URL ?>cancion/<?= $cancion->ID_Cancion ?>" class="btn btn-primary btn-sm">Ver Detalle</a>
 							</div>
 						</div>
 					</div>

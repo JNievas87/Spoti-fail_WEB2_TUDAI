@@ -16,7 +16,7 @@ class CancionView {
         $user = $this->user;
         require_once __DIR__ . '/templates/canciones/form.phtml';
     }
-    function showAll($canciones) {
-        require_once 'app/views/templates/canciones/list.phtml';
-    }
+    public function showAll($canciones) {
+        require_once __DIR__ . '/templates/canciones/list.phtml';
+}
 }
