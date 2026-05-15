@@ -1,36 +1,63 @@
-
 <?php require_once __DIR__ . '/../layout/header.phtml'; ?>
 
-    <h1><?= isset($interprete) ? 'Editar' : 'Agregar' ?> intérprete</h1>
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white">
+            <h2 class="h4 mb-0"><?= isset($interprete) ? 'Editar' : 'Agregar' ?> intérprete</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="<?= BASE_URL ?><?= isset($interprete) ? 'editInterprete/' . $interprete->ID_Interprete : 'addInterprete' ?>">
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" name="Nombre" class="form-control" value="<?= isset($interprete) ? $interprete->Nombre : '' ?>" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Género</label>
+                        <input type="text" name="Genero" class="form-control" value="<?= isset($interprete) ? $interprete->Genero : '' ?>" required>
+                    </div>
+                </div>
 
-    <a href="<?= BASE_URL ?>interprete">← Volver a intérpretes</a>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Tipo</label>
+                        <input type="text" name="Tipo" class="form-control" value="<?= isset($interprete) ? $interprete->Tipo : '' ?>" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">País de origen</label>
+                        <input type="text" name="Pais_Origen" class="form-control" value="<?= isset($interprete) ? $interprete->Pais_Origen : '' ?>" required>
+                    </div>
+                </div>
 
-        <form method="POST" action="<?= BASE_URL ?><?= isset($interprete) ? 'editInterprete/' . $interprete->ID_Interprete : 'addInterprete' ?>">
-        
-        <label>Nombre:</label>
-        <input type="text" name="Nombre" value="<?= isset($interprete) ? $interprete->Nombre : '' ?>">
-        
-        <label>Género:</label>
-        <input type="text" name="Genero" value="<?= isset($interprete) ? $interprete->Genero : '' ?>">
-        
-        <label>Tipo:</label>
-        <input type="text" name="Tipo" value="<?= isset($interprete) ? $interprete->Tipo : '' ?>">
-        
-        <label>País de origen:</label>
-        <input type="text" name="Pais_Origen" value="<?= isset($interprete) ? $interprete->Pais_Origen : '' ?>">
-        
-        <label>Sello discográfico:</label>
-        <input type="text" name="SelloDiscografico" value="<?= isset($interprete) ? $interprete->SelloDiscografico : '' ?>">
-        
-        <label>Sitio web:</label>
-        <input type="text" name="SitioWeb" value="<?= isset($interprete) ? $interprete->SitioWeb : '' ?>">
-        
-        <label>Fecha de inicio:</label>
-        <input type="date" name="FechaInicio" value="<?= isset($interprete) ? $interprete->FechaInicio : '' ?>">
-        
-        <label>Imagen (URL):</label>
-        <input type="text" name="Imagen" value="<?= isset($interprete) ? $interprete->Imagen : '' ?>">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Sello discográfico</label>
+                        <input type="text" name="SelloDiscografico" class="form-control" value="<?= isset($interprete) ? $interprete->SelloDiscografico : '' ?>" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Fecha de inicio</label>
+                        <input type="date" name="FechaInicio" class="form-control" value="<?= isset($interprete) ? $interprete->FechaInicio : '' ?>" required>
+                    </div>
+                </div>
 
-        <button type="submit">Guardar</button>
-    </form>
+                <div class="mb-3">
+                    <label class="form-label">Sitio web</label>
+                    <input type="text" name="SitioWeb" class="form-control" value="<?= isset($interprete) ? $interprete->SitioWeb : '' ?>">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Imagen (URL)</label>
+                    <input type="text" name="Imagen" class="form-control" value="<?= isset($interprete) ? $interprete->Imagen : '' ?>">
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    <a href="<?= BASE_URL ?>interprete" class="btn btn-outline-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-dark px-4">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <?php require_once __DIR__ . '/../layout/footer.phtml'; ?>

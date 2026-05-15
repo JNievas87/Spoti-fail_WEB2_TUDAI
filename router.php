@@ -8,6 +8,18 @@ session_start();
 
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
+  //TABLA DE RUTEO
+  //home                        home                 HomeController->showHome()
+  //interprete                  interprete           InterpreteController->showAll()
+ //interprete/:id              interprete/:id       InterpreteController->showDetail($id)
+ //addInterprete               addInterprete        InterpreteController->add()
+ //editInterprete/:id          editInterprete/:id   InterpreteController->edit($id)
+ //deleteInterprete/:id        deleteInterprete/:id InterpreteController->delete($id)
+ //cancion                     cancion              CancionController->showAll()
+ //cancion/:id                 cancion/:id          CancionController->showDetail($id)
+ //
+
+
 $action = 'home';
 
 if (!empty($_GET['action'])) {

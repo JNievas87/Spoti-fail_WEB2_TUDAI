@@ -1,28 +1,43 @@
-
 <?php require_once __DIR__ . '/../layout/header.phtml'; ?>
 
-<article>
-	<div>
-        <?php if (!empty($interprete->Imagen)): ?>
-			<img src="<?= $interprete->Imagen ?>" alt="<?= $interprete->Nombre ?>" style="width: 200px;">
-        <?php endif; ?>
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 overflow-hidden">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <?php if (!empty($interprete->Imagen)): ?>
+                    <img src="<?= $interprete->Imagen ?>"
+                         alt="<?= $interprete->Nombre ?>"
+                         class="img-fluid h-100"
+                         style="object-fit: contain; min-height: 300px;">
+                <?php endif; ?>
+            </div>
 
-		<h1><?= $interprete->Nombre ?></h1>
-		<p><strong>Género:</strong> <?= $interprete->Genero ?></p>
-		<p><strong>Tipo:</strong> <?= $interprete->Tipo ?></p>
-		<p><strong>País de origen:</strong> <?= $interprete->Pais_Origen ?></p>
-		<p><strong>Sello discográfico:</strong> <?= $interprete->SelloDiscografico ?></p>
-		<p><strong>Sitio web:</strong> <a href="<?= $interprete->SitioWeb ?>" target="_blank"><?= $interprete->SitioWeb ?></a></p>
-		<p><strong>Fecha de inicio:</strong> <?= $interprete->FechaInicio ?></p>
-	</div> 
+            <div class="col-md-8">
+                <div class="card-body p-5">
+                    <h1 class="display-5 fw-bold text-success"><?= $interprete->Nombre ?></h1>
+                    <hr>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Género:</strong> <?= $interprete->Genero ?></li>
+                        <li class="list-group-item"><strong>Tipo:</strong> <?= $interprete->Tipo ?></li>
+                        <li class="list-group-item"><strong>País de origen:</strong> <?= $interprete->Pais_Origen ?></li>
+                        <li class="list-group-item"><strong>Sello discográfico:</strong> <?= $interprete->SelloDiscografico ?></li>
+                        <li class="list-group-item"><strong>Sitio web:</strong> 
+                            <a href="<?= $interprete->SitioWeb ?>" target="_blank"><?= $interprete->SitioWeb ?></a>
+                        </li>
+                        <li class="list-group-item"><strong>Fecha de inicio:</strong> <?= $interprete->FechaInicio ?></li>
+                    </ul>
 
-    <?php if($user): ?>
-		<div class="actions">
-			<a href="<?= BASE_URL ?>editInterprete/<?= $interprete->ID_Interprete ?>">Editar</a>
-            <a href="<?= BASE_URL ?>deleteInterprete/<?= $interprete->ID_Interprete ?>">Eliminar</a>
-		</div>
-    <?php endif; ?>
-	<a href="<?= BASE_URL ?>interprete/" class="btn btn-secondary">← Volver a intérpretes</a>
-</article>
+                    <div class="mt-4">
+                        <a href="<?= BASE_URL ?>interprete" class="btn btn-outline-secondary">← Volver a intérpretes</a>
+                        <?php if($user): ?>
+                            <a href="<?= BASE_URL ?>editInterprete/<?= $interprete->ID_Interprete ?>" class="btn btn-warning">Editar</a>
+                            <a href="<?= BASE_URL ?>deleteInterprete/<?= $interprete->ID_Interprete ?>" class="btn btn-danger">Eliminar</a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<?php require_once __DIR__ . '/../layout/footer.phtml'; ?>
+<?php require_once __DIR__ . '/../layout/header.phtml'; ?>

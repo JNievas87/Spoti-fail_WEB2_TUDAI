@@ -17,7 +17,7 @@ class CancionController {
     // Listado público
     public function showAll() {
         $canciones = $this->model->getAll();
-        $this->view->showAll($canciones);
+        $this->view->showAll($cancion);
     }
 
     // Detalle de ítem
@@ -38,7 +38,7 @@ class CancionController {
                     $_POST['anio'],
                     $_POST['id_interprete']
                 );
-                header('Location: ' . BASE_URL . 'canciones');
+                header('Location: ' . BASE_URL . 'cancion');
             } else {
                 $interpretes = $this->interpreteModel->getAll();
                 $this->view->setUser($req->user);
@@ -49,6 +49,6 @@ class CancionController {
     // Eliminar
     public function delete($req) {
         $this->model->delete($req->id);
-        header('Location: ' . BASE_URL . 'canciones');
+        header('Location: ' . BASE_URL . 'cancion');
     }
 }
