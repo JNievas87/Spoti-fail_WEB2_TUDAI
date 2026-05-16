@@ -9,12 +9,12 @@ class AuthController {
     }
 
     public function showForm($req, $error = null) {
-    if ($error) {
-        $_SESSION['login_error'] = $error;
+        if ($error) {
+            $_SESSION['login_error'] = $error;
+        }
+        header('Location: ' . BASE_URL . 'home');
+        exit();
     }
-    header('Location: ' . BASE_URL . 'home');
-    exit();
-}
 
     public function login($req) {
         if (!empty($_POST['user']) && !empty($_POST['password'])) {
@@ -23,16 +23,16 @@ class AuthController {
 
             $userFromDB = $this->model->getByUser($user);
 
-            if ($userFromDB && $password === $userFromDB->password) {
+            if ($userFromDB && password_verify($password, $userFromDB->password)) {
                 $_SESSION["id"] = $userFromDB->ID_Usuario;
                 $_SESSION["user"] = $userFromDB->user;
 
                 header('Location: ' . BASE_URL . 'home');
             } else {
-                $this->showForm($req, 'Usuario o contraseña incorrectos.');
+                $this->showForm($req, 'Usuario o contraseña incorrectos');
             }
         } else {
-            $this->showForm($req, 'Faltan completar campos obligatorios.');
+            $this->showForm($req, 'Faltan completar campos obligatorios');
         }
     }
 

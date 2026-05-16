@@ -19,6 +19,7 @@ Una canción pertenece a un único intérprete, mientras que un intérprete pued
 ![Diagrama de Entidad Relación Spoti-fail](DER%20Spoti-fail.png)
 
 ## Cómo desplegar el sitio
+URL de acceso http://localhost/Spoti-fail_WEB2_TUDAI/home
 
 ### Requisitos
 - Apache y MySQL (recomendado XAMPP)
@@ -30,13 +31,13 @@ Una canción pertenece a un único intérprete, mientras que un intérprete pued
 git clone https://github.com/JNievas87/Spoti-fail_WEB2_TUDAI
 ```
 2. Crear una base de datos en MySQL
-3. Importar el archivo `db/spoti_fail-_web2.sql` en la base de datos creada
+3. Importar el archivo `db/spoti-fail-web2.sql` en la base de datos creada
 4. Configurar el archivo `config.php` con los datos de la base de datos:
 ```php
    define('BD_HOST', 'localhost');
    define('BD_USER', 'root');
    define('BD_PASS', '');
-   define('BD_DB', 'nombre_de_tu_base_de_datos');
+   define('BD_DB', 'spoti-fail-web2');
 ```
 5. Iniciar Apache y MySQL desde XAMPP
 6. Acceder a `http://localhost/Spoti-fail_WEB2_TUDAI/`
