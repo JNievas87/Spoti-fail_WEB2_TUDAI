@@ -15,36 +15,44 @@ class CancionController {
     }
 
     // Listado público
-    public function showAll() {
+    public function showAll($req) {
         $canciones = $this->model->getAll();
-        $this->view->showAll($cancion);
+        
+        $this->view->setReq($req); 
+        
+        $this->view->showAll($canciones);
     }
 
     // Detalle de ítem
     public function showDetail($req) {
-        $cancion = $this->model->getById($req->id);
+        $cancion = $this->model->get($req->id);
+        
+        $this->view->setReq($req);
+        
         $this->view->renderDetail($cancion);
     }
 
     public function add($req) {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $this->model->insert(
-                    $_POST['titulo'],
-                    $_POST['duracion'],
-                    $_POST['genero'],
-                    $_POST['idioma'],
-                    $_POST['album'],
-                    $_POST['portada'],
-                    $_POST['anio'],
-                    $_POST['id_interprete']
-                );
-                header('Location: ' . BASE_URL . 'cancion');
-            } else {
-                $interpretes = $this->interpreteModel->getAll();
-                $this->view->setUser($req->user);
-                $this->view->renderForm($interpretes);
-            }
+            $this->model->insert(
+                $_POST['titulo'],
+                $_POST['duracion'],
+                $_POST['genero'],
+                $_POST['idioma'],
+                $_POST['album'],
+                $_POST['portada'],
+                $_POST['anio'],
+                $_POST['id_interprete']
+            );
+            header('Location: ' . BASE_URL . 'cancion');
+        } else {
+            $interpretes = $this->interpreteModel->getAll();
+            
+            $this->view->setReq($req); 
+            
+            $this->view->renderForm($interpretes);
         }
+    }
 
     // Eliminar
     public function delete($req) {

@@ -1,10 +1,9 @@
 <?php
-class CancionModel {
-    private $db;
+require_once __DIR__ . '/model.php';
+class CancionModel extends Model {
 
     public function __construct() {
-        $this->db = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8',
-            DB_USER, DB_PASS);
+        parent::__construct(); 
     }
 
     public function getAll() {
@@ -19,24 +18,13 @@ class CancionModel {
 
     public function get($id) {
         $query = $this->db->prepare('
-            SELECT c.*, i.Nombre as nombre_interprete 
+            SELECT c.*, i.Nombre AS Nombre_Artista
             FROM cancion c 
             JOIN interprete i ON c.ID_Interprete = i.ID_Interprete 
             WHERE c.ID_Cancion = ?
         ');
         $query->execute([$id]);
 
-        return $query->fetch(PDO::FETCH_OBJ);
-    }
-
-    function getById($id) {
-        $query = $this->db->prepare("
-            SELECT c.*, i.Nombre AS Nombre_Artista 
-            FROM cancion c 
-            JOIN interprete i ON c.ID_Interprete = i.ID_Interprete 
-            WHERE c.ID_Cancion = ?
-        ");
-        $query->execute([$id]);
         return $query->fetch(PDO::FETCH_OBJ);
     }
 
@@ -48,7 +36,6 @@ class CancionModel {
             ORDER BY RAND() 
             LIMIT ?
         ");
-        // Forzamos que el límite sea un entero para evitar errores de SQL
         $query->bindValue(1, (int)$limit, PDO::PARAM_INT);
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);

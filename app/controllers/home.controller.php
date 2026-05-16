@@ -11,8 +11,11 @@ class HomeController {
         $this->view = new HomeView();
     }
 
-    public function showHome() {
+    public function showHome($req) {
         $canciones = $this->model->getRandomSongs(5);
+        
+        $this->view->setReq($req);
+        
         $this->view->renderHome($canciones);
     }
 }

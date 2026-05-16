@@ -15,9 +15,9 @@ class InterpreteController {
     }
 
     public function showAll($req) {
-    $interpretes = $this->model->getAll();
-    $this->view->setUser(null); //cuando tengamos el login tenemos que cambiarlo por $req->use
-    $this->view->renderAll($interpretes);
+        $interpretes = $this->model->getAll();
+        $this->view->setReq($req); 
+        $this->view->renderAll($interpretes);
     }
 
     public function showDetail($req) {
@@ -27,14 +27,9 @@ class InterpreteController {
         if (!$interprete) {
             return $this->errorView->renderError("Intérprete no encontrado");
         }
-
-        $this->view->setUser(null);
+        $this->view->setReq($req);
         $this->view->renderDetail($interprete);
     }
-/**
-     * Método privado para centralizar la captura y validación de datos del formulario.
-     * Esto evita repetir código en add() y edit().
-     */
     private function getFormData() {
         if (
             empty($_POST['Nombre']) || empty($_POST['Genero']) ||
@@ -57,24 +52,22 @@ class InterpreteController {
         ];
     }
 
-        public function add($req) {
+    public function add($req) {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $datos = $this->getFormData();
 
             if ($datos === null) {
                 return $this->errorView->renderError("Faltan datos obligatorios para agregar el intérprete.");
             }
-
-            // El spread operator desglosa el array en los argumentos que espera el model->insert
             $this->model->insert(...array_values($datos));
             header('Location: ' . BASE_URL . '?action=interprete');
         } else {
-            $this->view->setUser(null); 
+            $this->view->setReq($req); 
             $this->view->renderForm(null);
         }
     }
 
-        public function edit($req) {
+    public function edit($req) {
         $id = $req->id;
         $interprete = $this->model->get($id);
 
@@ -84,27 +77,23 @@ class InterpreteController {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $datos = $this->getDatosInterprete();
-
             if ($datos === null) {
                 return $this->errorView->renderError("Faltan datos para actualizar el intérprete.");
             }
-
-            // Pasamos el ID y despues el resto de los datos desglosados
             $this->model->update($id, ...array_values($datos));
             header('Location: ' . BASE_URL . '?action=interprete');
         } else {
-            $this->view->setUser(null);
+            $this->view->setReq($req);
             $this->view->renderForm($interprete);
         }
     }
-        public function delete($req) {
+
+    public function delete($req) {
         $id = $req->id;
         $interprete = $this->model->get($id);
-
         if (!$interprete) {
             return $this->errorView->renderError("No se puede eliminar un intérprete inexistente.");
         }
-
         $this->model->delete($id);
         header('Location: ' . BASE_URL . '?action=interprete');
     }

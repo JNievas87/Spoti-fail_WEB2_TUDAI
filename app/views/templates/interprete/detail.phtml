@@ -1,4 +1,6 @@
-<?php require_once __DIR__ . '/../layout/header.phtml'; ?>
+<?php
+
+require_once __DIR__ . '/../layout/header.phtml'; ?>
 
 <div class="container mt-5">
     <div class="card shadow-lg border-0 overflow-hidden">
@@ -7,8 +9,7 @@
                 <?php if (!empty($interprete->Imagen)): ?>
                     <img src="<?= $interprete->Imagen ?>"
                          alt="<?= $interprete->Nombre ?>"
-                         class="img-fluid h-100"
-                         style="object-fit: contain; min-height: 300px;">
+                         class="img-fluid h-100 interprete-detail-img">
                 <?php endif; ?>
             </div>
 
@@ -40,4 +41,4 @@
     </div>
 </div>
 
-<?php require_once __DIR__ . '/../layout/header.phtml'; ?>
+<?php require_once __DIR__ . '/../layout/footer.phtml'; ?>
