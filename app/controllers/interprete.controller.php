@@ -2,16 +2,19 @@
 require_once __DIR__ . '/../models/interprete.model.php';
 require_once __DIR__ . '/../views/interprete.view.php';
 require_once __DIR__ . '/../views/error.view.php';
+require_once __DIR__ . '/../models/cancion.model.php'; 
 
 class InterpreteController {
     private $model;
     private $view;
     private $errorView;
+    private $cancionModel; 
 
     public function __construct() {
         $this->model = new InterpreteModel();
         $this->view = new InterpreteView();
         $this->errorView = new ErrorView();
+        $this->cancionModel = new CancionModel();
     }
 
     public function showAll($req) {
@@ -21,21 +24,24 @@ class InterpreteController {
     }
 
     public function showDetail($req) {
-        $id = $req->id;
-        $interprete = $this->model->get($id);
+    $id = $req->id;
+    $interprete = $this->model->get($id);
 
-        if (!$interprete) {
-            return $this->errorView->renderError("Intérprete no encontrado");
-        }
-        $this->view->setReq($req);
-        $this->view->renderDetail($interprete);
+    if (!$interprete) {
+        return $this->errorView->renderError("Intérprete no encontrado");
     }
+
+    $canciones = $this->cancionModel->getBySinger($id);
+    $this->view->setReq($req); 
+    $this->view->renderDetail($interprete, $canciones);
+    }
+
     private function getFormData() {
-        if (
-            empty($_POST['Nombre']) || empty($_POST['Genero']) ||
-            empty($_POST['Tipo']) || empty($_POST['Pais_Origen']) ||
-            empty($_POST['SelloDiscografico']) || empty($_POST['Imagen']) ||
-            empty($_POST['SitioWeb']) || empty($_POST['FechaInicio'])
+    if (
+        empty($_POST['Nombre']) || empty($_POST['Genero']) ||
+        empty($_POST['Tipo']) || empty($_POST['Pais_Origen']) ||
+        empty($_POST['SelloDiscografico']) || empty($_POST['Imagen']) ||
+        empty($_POST['SitioWeb']) || empty($_POST['FechaInicio'])
         ) {
             return $this->errorView->renderError("Por favor, complete todos los campos.");
         }
@@ -60,7 +66,7 @@ class InterpreteController {
                 return $this->errorView->renderError("Faltan datos obligatorios para agregar el intérprete.");
             }
             $this->model->insert(...array_values($datos));
-            header('Location: ' . BASE_URL . '?action=interprete');
+            header('Location: ' . BASE_URL . 'interprete');
         } else {
             $this->view->setReq($req); 
             $this->view->renderForm(null);
@@ -76,12 +82,12 @@ class InterpreteController {
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $datos = $this->getDatosInterprete();
+            $datos = $this->getFormData();
             if ($datos === null) {
                 return $this->errorView->renderError("Faltan datos para actualizar el intérprete.");
             }
             $this->model->update($id, ...array_values($datos));
-            header('Location: ' . BASE_URL . '?action=interprete');
+            header('Location: ' . BASE_URL . 'interprete');
         } else {
             $this->view->setReq($req);
             $this->view->renderForm($interprete);
@@ -91,10 +97,14 @@ class InterpreteController {
     public function delete($req) {
         $id = $req->id;
         $interprete = $this->model->get($id);
-        if (!$interprete) {
+
+            if (!$interprete) {
             return $this->errorView->renderError("No se puede eliminar un intérprete inexistente.");
-        }
-        $this->model->delete($id);
-        header('Location: ' . BASE_URL . '?action=interprete');
+    }
+                if ($this->model->tieneCanciones($id)) {
+                return $this->errorView->renderError("No se puede eliminar el intérprete porque tiene canciones asociadas.");
+    }
+            $this->model->delete($id);
+            header('Location: ' . BASE_URL . 'interprete');
     }
 }

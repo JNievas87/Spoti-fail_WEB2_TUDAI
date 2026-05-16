@@ -25,13 +25,13 @@ class InterpreteModel extends Model{
         INSERT INTO interprete (Nombre, Genero, Tipo, Pais_Origen, SelloDiscografico, Imagen, SitioWeb, FechaInicio) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
         $query->execute([$nombre, $genero, $tipo, $pais_origen, $sello, $imagen, $sitio_web, $fecha_inicio]);
         return $this->db->lastInsertId();
-}
+    }
 
     public function delete($id) {
         $query = $this->db->prepare('DELETE FROM interprete WHERE ID_Interprete = ?');
         $query->execute([$id]);
         return $query->rowCount();
-}
+    }
 
     public function update($id, $nombre, $genero, $tipo, $pais_origen, $sello, $imagen, $sitio_web, $fecha_inicio) {
         $query = $this->db->prepare ('UPDATE interprete SET Nombre=?, Genero=?, Tipo=?, Pais_Origen=?, SelloDiscografico=?, Imagen=?, SitioWeb=?, FechaInicio=?WHERE ID_Interprete=?');
@@ -39,6 +39,11 @@ class InterpreteModel extends Model{
         return $query->rowCount();
         }
 
+    public function tieneCanciones($id) {
+    $query = $this->db->prepare('SELECT COUNT(*) FROM cancion WHERE ID_Interprete = ?');
+    $query->execute([$id]);
+    return $query->fetchColumn() > 0;
+    }
 
     public function getCancionesByInterprete($id) {
         $query = $this->db->prepare('SELECT * FROM cancion WHERE id_interprete = ?');

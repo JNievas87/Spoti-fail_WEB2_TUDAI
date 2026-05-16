@@ -1,22 +1,47 @@
 # Spoti-fail
 
 ## Integrantes
-[Jorge Luis Nievas] ([jnievas@alumnos.exa.unicen.edu.ar])
-
-[Mariana Santana] ([msantana@alumnos.exa.unicen.edu.ar])
+- Jorge Luis Nievas (jnievas@alumnos.exa.unicen.edu.ar)
+- Mariana Santana (msantana@alumnos.exa.unicen.edu.ar)
 
 ## Temática
-
 Gestión de catálogo musical, artistas y sus discografías.
 
 ## Descripción
+Sitio web dinámico que permite visualizar y administrar un catálogo de música. 
+Los usuarios públicos pueden navegar el listado de intérpretes y canciones. 
+El administrador puede gestionar el contenido completo mediante un sistema de ABM.
 
-Este sitio web permite administrar un catálogo de música, almacenando información detallada de los intérpretes (solistas o bandas), incluyendo su origen, género y sello discográfico.
-También almacena la lista de canciones disponibles, con datos como su duración, idioma y el álbum al que pertenecen.
-Las canciones están vinculadas cada una a un intérprete responsable, permitiendo organizar la biblioteca musical de forma eficiente.
-
-## Diagrama de entidad relación (DER)
-
-El modelo cuenta con una relación 1:N (Uno a Muchos) entre las entidades Interprete y Cancion. Una canción pertenece a un único intérprete, mientras que un intérprete puede ser autor de múltiples canciones.
+## Diagrama de Entidad Relación (DER)
+El modelo cuenta con una relación 1:N entre las entidades Interprete y Cancion. 
+Una canción pertenece a un único intérprete, mientras que un intérprete puede tener múltiples canciones.
 
 ![Diagrama de Entidad Relación Spoti-fail](DER%20Spoti-fail.png)
+
+## Cómo desplegar el sitio
+
+### Requisitos
+- Apache y MySQL (recomendado XAMPP)
+- PHP 8.0 o superior
+
+### Pasos
+1. Clonar el repositorio dentro de la carpeta `htdocs` de XAMPP:
+```
+git clone https://github.com/JNievas87/Spoti-fail_WEB2_TUDAI
+```
+2. Crear una base de datos en MySQL
+3. Importar el archivo `db/spoti_fail-_web2.sql` en la base de datos creada
+4. Configurar el archivo `config.php` con los datos de la base de datos:
+```php
+   define('BD_HOST', 'localhost');
+   define('BD_USER', 'root');
+   define('BD_PASS', '');
+   define('BD_DB', 'nombre_de_tu_base_de_datos');
+```
+5. Iniciar Apache y MySQL desde XAMPP
+6. Acceder a `http://localhost/Spoti-fail_WEB2_TUDAI/`
+
+## Usuario administrador
+- **Usuario:** webadmin
+- **Contraseña:** admin
+

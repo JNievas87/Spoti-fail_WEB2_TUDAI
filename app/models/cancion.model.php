@@ -41,6 +41,15 @@ class CancionModel extends Model {
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function getBySinger($id) {
+    $query = $this->db->prepare('
+        SELECT * FROM cancion 
+        WHERE ID_Interprete = ?
+    ');
+    $query->execute([$id]);
+    return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
     public function insert($titulo, $duracion, $genero, $idioma, $album, $portada, $anio, $id_interprete) {
         $query = $this->db->prepare('
             INSERT INTO cancion (Titulo, Duracion, Genero, Idioma, Album, Portada, Año, ID_Interprete) 

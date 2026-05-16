@@ -1,6 +1,4 @@
-<?php
-
-require_once __DIR__ . '/../layout/header.phtml'; ?>
+<?php require_once __DIR__ . '/../layout/header.phtml'; ?>
 
 <div class="container mt-5">
     <div class="card shadow-lg border-0 overflow-hidden">
@@ -38,6 +36,31 @@ require_once __DIR__ . '/../layout/header.phtml'; ?>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="mt-5">
+        <h2 class="text-success">Canciones</h2>
+        <hr>
+        <?php if(empty($canciones)): ?>
+            <p class="text-muted">Este intérprete no tiene canciones cargadas.</p>
+        <?php else: ?>
+            <div class="row">
+                <?php foreach($canciones as $cancion): ?>
+                    <div class="col-12 col-md-4 mb-3">
+                        <div class="card shadow-sm">
+                            <img src="<?= $cancion->Portada ?>" 
+                                 class="card-img-top" 
+                                 style="height: 150px; object-fit: contain;">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= $cancion->Titulo ?></h5>
+                                <p class="card-text small text-muted"><?= $cancion->Album ?></p>
+                                <a href="<?= BASE_URL ?>cancion/<?= $cancion->ID_Cancion ?>" class="btn btn-primary btn-sm">Ver detalle</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 
