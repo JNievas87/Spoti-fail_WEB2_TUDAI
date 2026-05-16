@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-04-2026 a las 17:07:02
+-- Tiempo de generación: 16-05-2026 a las 15:05:27
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `spoti fail- web2`
+-- Base de datos: `spoti_fail-_web2`
 --
 
 -- --------------------------------------------------------
@@ -124,6 +124,25 @@ INSERT INTO `interprete` (`ID_Interprete`, `Nombre`, `Genero`, `Tipo`, `Pais_Ori
 (4, 'Divididos', 'Rock', 'Banda', 'Argentina', 'Pelo Music', 'https://thisis-images.spotifycdn.com/37i9dQZF1DZ06evO48uy5O-default.jpg', 'https://divididos.com.ar', '1988-01-01'),
 (5, 'Tini', 'Pop', 'Solista', 'Argentina', 'Sony Music', 'https://thisis-images.scdn.co/37i9dQZF1DZ06evO4rTB3W-large.jpg', 'https://tinistoessel.com', '2011-01-01');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `ID_Usuario` int(11) NOT NULL,
+  `user` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`ID_Usuario`, `user`, `password`) VALUES
+(1, 'webadmin', 'admin');
+
 --
 -- Índices para tablas volcadas
 --
@@ -142,6 +161,13 @@ ALTER TABLE `interprete`
   ADD PRIMARY KEY (`ID_Interprete`);
 
 --
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`ID_Usuario`),
+  ADD UNIQUE KEY `user` (`user`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -156,6 +182,12 @@ ALTER TABLE `cancion`
 --
 ALTER TABLE `interprete`
   MODIFY `ID_Interprete` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `ID_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
