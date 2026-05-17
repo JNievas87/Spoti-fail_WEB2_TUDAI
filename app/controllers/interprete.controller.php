@@ -45,7 +45,9 @@ class InterpreteController {
         ) {
             return $this->errorView->renderError("Por favor, complete todos los campos.");
         }
-
+        if($_POST['FechaInicio'] > date('Y-m-d')) {
+        return $this->errorView->renderError("La fecha de inicio no puede ser futura.");
+        }
         return [
             'Nombre'             => $_POST['Nombre'],
             'Genero'             => $_POST['Genero'],

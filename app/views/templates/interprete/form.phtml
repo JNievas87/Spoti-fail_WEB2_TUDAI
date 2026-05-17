@@ -37,8 +37,7 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Fecha de inicio</label>
-                        <input type="date" name="FechaInicio" class="form-control" value="<?= isset($interprete) ? $interprete->FechaInicio : '' ?>" required>
-                    </div>
+                        <input type="date" name="FechaInicio" class="form-control" max="<?= date('Y-m-d') ?>" value="<?= isset($interprete) ? $interprete->FechaInicio : '' ?>" required>
                 </div>
 
                 <div class="mb-3">
