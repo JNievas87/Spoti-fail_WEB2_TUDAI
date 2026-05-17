@@ -1,39 +1,49 @@
 <?php
-
 require_once __DIR__ . '/../../config.php';
 
 class Model {
     protected $db;
 
     public function __construct() {
+        // Conexión inicial sin especificar BD, permite crearla si no existe
+        $this->db = new PDO(
+            "mysql:host=" . BD_HOST . ";charset=utf8",
+            BD_USER,
+            BD_PASS
+        );
         
+        // Crea la BD si no existe
+        $this->db->query("CREATE DATABASE IF NOT EXISTS `" . BD_DB . "` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci");
+        
+        // Reconexión especificando la BD ya creada
         $this->db = new PDO(
             "mysql:host=" . BD_HOST . ";dbname=" . BD_DB . ";charset=utf8",
             BD_USER,
             BD_PASS
         );
-        
+
+        // Ejecuta el deploy automático de tablas y datos iniciales
         $this->_deploy();
     }
 
+    // Crea las tablas e inserta datos iniciales si la BD está vacía
     private function _deploy() {
-        
         $query = $this->db->query('SHOW TABLES');
         $tables = $query->fetchAll();
         
+        // Solo despliega si no hay tablas en la BD
         if (count($tables) == 0) {
-            $sql = <<<END
-            
+            $sql = "
             CREATE TABLE IF NOT EXISTS `usuarios` (
-              `id` int(11) NOT NULL AUTO_INCREMENT,
+              `ID_Usuario` int(11) NOT NULL AUTO_INCREMENT,
               `user` varchar(50) NOT NULL,
               `password` varchar(255) NOT NULL,
-              PRIMARY KEY (`id`),
+              PRIMARY KEY (`ID_Usuario`),
               UNIQUE KEY `user` (`user`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-            INSERT INTO `usuarios` (`id`, `user`, `password`) VALUES
-            (1, 'webadmin', '\$2y\$10\$M7Y8b6W6GfJvR5K6zXy2Ou1A8Z3rGvM6tY7b8c9d0e1f2g3h4i5j.');
+            INSERT INTO `usuarios` (`ID_Usuario`, `user`, `password`) VALUES
+            (1, 'webadmin', '\$2y\$10\$vnHUmOIjQqCjABRsCA08oe9/6Bu8exHbzcipB1y7d7piIJOGbFq4i');
 
             CREATE TABLE IF NOT EXISTS `interprete` (
               `ID_Interprete` int(11) NOT NULL AUTO_INCREMENT,
@@ -66,7 +76,8 @@ class Model {
               `Año` year(4) NOT NULL,
               `ID_Interprete` int(11) NOT NULL,
               PRIMARY KEY (`ID_Cancion`),
-              KEY `ID_Iterprete` (`ID_Interprete`)
+              KEY `ID_Iterprete` (`ID_Interprete`),
+              CONSTRAINT `cancion_ibfk_1` FOREIGN KEY (`ID_Interprete`) REFERENCES `interprete` (`ID_Interprete`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
             INSERT INTO `cancion` (`ID_Cancion`, `Titulo`, `Duracion`, `Genero`, `Idioma`, `Album`, `Portada`, `Año`, `ID_Interprete`) VALUES
@@ -120,11 +131,15 @@ class Model {
             (48, 'Carne y Hueso', 175, 'Balada', 'Español', 'Cupido', 'https://tse4.mm.bing.net/th/id/OIP.XcI4sco3piTkhQibDYZF7gHaHa?rs=1&pid=ImgDetMain&o=7&rm=3', '2022', 5),
             (49, 'Oye', 170, 'Balada', 'Español', 'Tini Tini Tini', 'https://images.genius.com/e8b3481b57821ae704e826570ed2db5b.1000x1000x1.jpg', '2019', 5),
             (50, 'Te Olvidaré', 192, 'Pop', 'Español', 'Tini Tini Tini', 'https://images.genius.com/e8b3481b57821ae704e826570ed2db5b.1000x1000x1.jpg', '2020', 5);
-
-            ALTER TABLE `cancion`
-              ADD CONSTRAINT `cancion_ibfk_1` FOREIGN KEY (`ID_Interprete`) REFERENCES `interprete` (`ID_Interprete`);
-END;
-            $this->db->query($sql);
+            ";
+            
+            // Ejecuta cada sentencia SQL por separado ya que PDO no soporta múltiples sentencias en una sola llamada
+            foreach (explode(';', $sql) as $statement) {
+                $statement = trim($statement);
+                if (!empty($statement)) {
+                    $this->db->exec($statement);
+                }
+            }
         }
     }
 }

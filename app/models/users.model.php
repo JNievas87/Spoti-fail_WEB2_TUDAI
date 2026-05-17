@@ -1,12 +1,13 @@
 <?php
 require_once __DIR__ . '/model.php';
-class UsersModel extends Model{
-    
+
+class UsersModel extends Model {
 
     public function __construct() {
         parent::__construct(); 
     }
 
+    // Busca un usuario por su nombre de usuario, retorna el objeto o false si no existe
     public function getByUser($user) {
         $query = $this->db->prepare('SELECT * FROM usuarios WHERE user = ?');
         $query->execute([$user]);
