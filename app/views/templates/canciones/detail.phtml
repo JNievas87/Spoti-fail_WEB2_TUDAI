@@ -1,4 +1,6 @@
-<?php require_once __DIR__ . '/../layout/header.phtml'; ?>
+<?php
+/** @var stdClass $cancion */
+require_once __DIR__ . '/../layout/header.phtml'; ?>
 
 <div class="container mt-5">
     <nav aria-label="breadcrumb">
@@ -40,7 +42,8 @@
                     <div class="mt-5">
                         <a href="<?= BASE_URL ?>cancion" class="btn btn-outline-secondary">Volver al listado</a>
                         <?php if($this->user): ?>
-                            <a href="<?= BASE_URL ?>cancion/edit/<?= $cancion->ID_Cancion ?>" class="btn btn-warning">Editar</a>
+                            <a href="<?= BASE_URL ?>edit-cancion/<?= $cancion->ID_Cancion ?>" class="btn btn-warning">Editar</a>
+                            <a href="<?= BASE_URL ?>delete-cancion/<?= $cancion->ID_Cancion ?>" class="btn btn-danger">Eliminar</a>
                         <?php endif; ?>
                     </div>
                 </div>

@@ -11,7 +11,7 @@ class CancionView {
         require_once __DIR__ . '/templates/canciones/detail.phtml'; 
     }
 
-    public function renderForm($interpretes) {
+    public function renderForm($interpretes, $cancion = null) {
         require_once __DIR__ . '/templates/canciones/form.phtml';
     }
 

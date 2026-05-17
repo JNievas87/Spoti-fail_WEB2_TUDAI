@@ -1,61 +1,84 @@
-<?php require_once __DIR__ . '/../layout/header.phtml'; ?>
+<?php
+/** @var array $interpretes */
+/** @var stdClass|null $cancion */
+require_once __DIR__ . '/../layout/header.phtml'; ?>
 
-	<div class="container mt-5">
-		<div class="card shadow">
-			<div class="card-header bg-primary text-white">
-				<h2 class="h4 mb-0"><?= $cancion ? 'Editar Canción' : 'Agregar Nueva Canción' ?></h2>
-			</div>
-			<div class="card-body">
-				<form action="<?= BASE_URL ?><?= $cancion ? 'cancion/update/'.$cancion->ID_Cancion : 'cancion/insert' ?>" method="POST">
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h4 mb-0"><?= $cancion ? 'Editar Canción' : 'Agregar Nueva Canción' ?></h2>
+        </div>
+        <div class="card-body">
+            <form action="<?= BASE_URL ?><?= $cancion ? 'edit-cancion/'.$cancion->ID_Cancion : 'add-cancion' ?>" method="POST">
 
-					<div class="row">
-						<div class="col-md-6 mb-3">
-							<label class="form-label">Título de la canción</label>
-							<input type="text" name="Titulo" class="form-control" value="<?= $cancion ? $cancion->Titulo : '' ?>" required>
-						</div>
-						<div class="col-md-6 mb-3">
-							<label class="form-label">Artista / Intérprete</label>
-							<select name="ID_Interprete" class="form-select" required>
-								<option value="" selected disabled>Seleccioná un artista...</option>
-                                <?php foreach($interpretes as $artista): ?>
-									<option value="<?= $artista->ID_Interprete ?>"
-                                        <?= ($cancion && $cancion->ID_Interprete == $artista->ID_Interprete) ? 'selected' : '' ?>>
-                                        <?= $artista->Nombre ?>
-									</option>
-                                <?php endforeach; ?>
-							</select>
-						</div>
-					</div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Título de la canción</label>
+                        <input type="text" name="Titulo" class="form-control" value="<?= $cancion ? $cancion->Titulo : '' ?>" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Artista / Intérprete</label>
+                        <select name="ID_Interprete" class="form-select" required>
+                            <option value="" selected disabled>Seleccioná un artista...</option>
+                            <?php foreach($interpretes as $artista): ?>
+                                <option value="<?= $artista->ID_Interprete ?>"
+                                    <?= ($cancion && $cancion->ID_Interprete == $artista->ID_Interprete) ? 'selected' : '' ?>>
+                                    <?= $artista->Nombre ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <div class="mt-1">
+                            <a href="<?= BASE_URL ?>addInterprete" class="small text-success">¿No encontrás el intérprete? Agregalo acá</a>
+                        </div>
+                    </div>
+                </div>
 
-					<div class="row">
-						<div class="col-md-4 mb-3">
-							<label class="form-label">Álbum</label>
-							<input type="text" name="Album" class="form-control" value="<?= $cancion ? $cancion->Album : '' ?>">
-						</div>
-						<div class="col-md-4 mb-3">
-							<label class="form-label">Género</label>
-							<input type="text" name="Genero" class="form-control" value="<?= $cancion ? $cancion->Genero : '' ?>">
-						</div>
-						<div class="col-md-4 mb-3">
-							<label class="form-label">Año</label>
-							<input type="number" name="Año" class="form-control" value="<?= $cancion ? $cancion->Año : date('Y') ?>">
-						</div>
-					</div>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Álbum</label>
+                        <input type="text" name="Album" class="form-control" value="<?= $cancion ? $cancion->Album : '' ?>">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Género</label>
+                        <input type="text" name="Genero" class="form-control" value="<?= $cancion ? $cancion->Genero : '' ?>">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Año</label>
+                        <input type="number" name="Año" class="form-control" max="<?= date('Y') ?>" value="<?= $cancion ? $cancion->Año : date('Y') ?>">
+                    </div>
+                </div>
 
-					<div class="mb-3">
-						<label class="form-label">URL de la Portada (Imagen)</label>
-						<input type="url" name="Portada" class="form-control" placeholder="https://..." value="<?= $cancion ? $cancion->Portada : '' ?>">
-					</div>
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Duración - Minutos</label>
+                        <input type="number" name="Minutos" class="form-control" min="0"
+                               value="<?= $cancion ? floor($cancion->Duracion / 60) : '' ?>" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Duración - Segundos</label>
+                        <input type="number" name="Segundos" class="form-control" min="0" max="59"
+                               value="<?= $cancion ? $cancion->Duracion % 60 : '' ?>" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Idioma</label>
+                        <input type="text" name="Idioma" class="form-control" value="<?= $cancion ? $cancion->Idioma : '' ?>" required>
+                    </div>
+                </div>
 
-					<div class="d-flex justify-content-end gap-2 mt-4">
-						<a href="<?= BASE_URL ?>cancion" class="btn btn-outline-secondary">Cancelar</a>
-						<button type="submit" class="btn btn-success px-4">
-                            <?= $cancion ? 'Guardar Cambios' : 'Crear Canción' ?>
-						</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+                <div class="mb-3">
+                    <label class="form-label">URL de la Portada (Imagen)</label>
+                    <input type="url" name="Portada" class="form-control" placeholder="https://..." value="<?= $cancion ? $cancion->Portada : '' ?>">
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    <a href="<?= BASE_URL ?>cancion" class="btn btn-outline-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-success px-4">
+                        <?= $cancion ? 'Guardar Cambios' : 'Crear Canción' ?>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <?php require_once __DIR__ . '/../layout/footer.phtml'; ?>

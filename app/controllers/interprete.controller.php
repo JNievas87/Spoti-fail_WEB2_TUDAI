@@ -68,7 +68,7 @@ class InterpreteController {
                 return $this->errorView->renderError("Faltan datos obligatorios para agregar el intérprete.");
             }
             $this->model->insert(...array_values($datos));
-            header('Location: ' . BASE_URL . 'interprete');
+            header('Location: ' . BASE_URL . 'add-cancion');
         } else {
             $this->view->setReq($req); 
             $this->view->renderForm(null);
